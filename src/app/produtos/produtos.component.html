@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-sm-12 mt-1">
+        <button class="btn btn-success float-end" (click)="cadastrar()">Cadastrar</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6" *ngIf="apresentaForm">
+        <div class="row">
+            <div class="col-sm-10">
+                <h3>{{produtoForm.value.id ? 'Produto: ' + produtoForm.value.id : 'Novo produto'}}</h3>
+            </div>
+            <div class="col-sm-2 mt-1">
+                <button class="btn btn-sm btn-outline-danger float-end" (click)="fechar()">Fechar</button>
+            </div>
+        </div>
+
+        <form [formGroup]="produtoForm" (submit)="salvar()">
+            <div class="mb-3">
+                <label class="form-label" for="nome">Nome</label>
+                <input class="form-control" id="nome" formControlName="nome" type="text" maxlength="100">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="valorVenda">Valor de venda</label>
+                <input class="form-control" id="valorVenda" formControlName="valorVenda" type="number">
+            </div>
+            <div>
+                <button class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <div [ngClass]="apresentaForm ? 'col-sm-6' : 'col-sm-12'">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ações</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Valor de Venda</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let produto of produtos">
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" (click)="selecionar(produto.id)">Editar</button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="remover(produto.id)">Excluir</button>
+                        </div>
+                    </td>
+                    <td scope="row">{{produto.id}}</td>
+                    <td>{{produto.nome}}</td>
+                    <td>{{produto.valorVenda}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
